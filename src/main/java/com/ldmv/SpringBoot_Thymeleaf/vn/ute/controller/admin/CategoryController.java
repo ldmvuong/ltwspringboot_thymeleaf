@@ -48,14 +48,21 @@ public class CategoryController {
 
         Category entity = new Category();
         BeanUtils.copyProperties(cateModel, entity);
-        categoryService.save(entity);
 
         String message = "";
-        if (cateModel.getIsEdit()) {
-            message = "Category is Edited!";
-        } else {
-            message = "Category is Saved!";
+        if(categoryService.findByName(entity.getName()).isPresent()){
+
+            message = "Categoryname already exists!";
         }
+        else {
+            categoryService.save(entity);
+            if (cateModel.getIsEdit()) {
+                message = "Category is Edited!";
+            } else {
+                message = "Category is Saved!";
+            }
+        }
+
         model.addAttribute("message", message);
         return new ModelAndView("forward:/admin/categories", model);
     }

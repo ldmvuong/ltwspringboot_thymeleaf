@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CatergoryImpl implements CategoryService{
+public class CatergoryServiceImpl implements CategoryService{
     @Autowired
     CategoryRepository CategoryRepository;
 
@@ -59,5 +59,11 @@ public class CatergoryImpl implements CategoryService{
     @Override
     public void deleteById(Long aLong) {
         CategoryRepository.deleteById(aLong);
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        return Optional.ofNullable(CategoryRepository.findByName(name)
+                .orElse(null));
     }
 }

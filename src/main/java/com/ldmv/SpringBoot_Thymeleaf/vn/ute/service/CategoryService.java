@@ -27,4 +27,6 @@ public interface CategoryService {
     long count();
 
     void deleteById(Long aLong);
+
+    Optional<Category> findByName(String name);
 }
